@@ -184,6 +184,7 @@ async function locateDataPath(appName) {
 
   const browser = await puppeteer.launch({
     headless:    false,
+    args: ['--no-sandbox'],
     userDataDir: path.join(
                             await locateDataPath(appName),
                             'Chrome',

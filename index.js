@@ -22,12 +22,17 @@ const sts              = require('./sts.js');
 // Functions
 // *********
 async function createCredentialBlock(identity) {
-  const { accountNumber, roleName, credentials } = await identity;
-
-  return (stripIndents`[${accountNumber}-${roleName}]
-           aws_access_key_id = ${credentials.AccessKeyId}
-           aws_secret_access_key = ${credentials.SecretAccessKey}
-           aws_session_token = ${credentials.SessionToken}`);
+  try {
+    const { accountNumber, roleName, credentials } = await identity;
+    
+    return (stripIndents`[${accountNumber}-${roleName}]
+            aws_access_key_id = ${credentials.AccessKeyId}
+            aws_secret_access_key = ${credentials.SecretAccessKey}
+            aws_session_token = ${credentials.SessionToken}`);
+  }
+  catch {    
+    return (``) ;
+  }
 }
 
 function outputDocAsDownload(doc) {
